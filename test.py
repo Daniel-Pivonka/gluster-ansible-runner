@@ -57,7 +57,7 @@ vars = {
 }
 
 #run playbook wiht inventory
-r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster_ansible_runner/ansible',
+r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
                        playbook = playbook,
                        inventory = inventory,
                        extravars = vars)
