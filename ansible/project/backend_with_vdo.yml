@@ -1,0 +1,29 @@
+---
+- name: Setting up backend with VDO
+  remote_user: root
+  hosts: vdos
+  gather_facts: false
+
+  vars:
+     # Create a vdo
+     gluster_infra_vdo:
+        - { name: 'foo', device: '/dev/vdb' }
+
+     gluster_infra_disktype: RAID10
+
+     # RAID6 and RAID10 diskcount
+     gluster_infra_diskcount: 10
+     gluster_infra_stripe_unit_size: 128
+
+     # The vitualsize option while creating thinpool
+     gluster_infra_lv_logicalvols:
+        - { lvname: 'thin_lv1', lvsize: '500G' }
+        - { lvname: 'thin_lv2', lvsize: '500G' }
+
+     # Mount the devices
+     gluster_infra_mount_devices:
+        - { path: '/mnt/thinv1',   lv: 'thin_lv1' }
+        - { path: '/mnt/thinv2',   lv: 'thin_lv2' }
+
+  roles:
+    - gluster.infra

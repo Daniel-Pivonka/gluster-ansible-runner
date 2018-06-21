@@ -1,0 +1,1 @@
+{"vars": {"gluster_infra_mount_devices": [{"lv": "thin_lv1", "path": "/mnt/thinv1"}, {"lv": "thin_lv2", "path": "/mnt/thinv2"}], "gluster_infra_lv_logicalvols": [{"lvname": "thin_lv1", "lvsize": "25G"}, {"lvname": "thin_lv2", "lvsize": "25G"}], "gluster_infra_pvs": "/dev/vdb"}}
