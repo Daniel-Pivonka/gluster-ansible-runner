@@ -1,33 +1,45 @@
 import ansible_runner
+import argparse
+
+parser = argparse.ArgumentParser(description='gluster-ansible-runner')
+
+parser.add_argument('-i', '--inventory', required=True, help='Specifc the inventory you want ansible to use check code for format examples')
+#inventory input examples
+#--inventory [vdos:192.168.122.158,192.168.122.159,192.168.122.160],[other:192.168.122.158,192.168.122.159],[more:192.168.122.158]
+#--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158],[other:192.168.122.158]
+#--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158]
+
+args = parser.parse_args()
+
+
+input = args.inventory
+
+#create inventroy
+inventory = {}
+#break up groups
+groups = input.split('],[')
+#go thru groups
+for group in groups:
+    #remove extra '[' & ']'
+    group = group.replace('[', '')
+    group = group.replace(']', '')
+    #split group name from ips
+    split = group.split(':')
+    #creat inner dicts
+    hosts = {}
+    ips = {}
+    #split ips
+    ip_list = split[1].split(',')
+    #fill ip dict with ips
+    for ip in ip_list:
+        ips[ip] = ''
+    #put ip dict in host dict
+    hosts['hosts'] = ips
+    #put host in group in inventory dict
+    inventory[split[0]] = hosts
 
 #playbook
 playbook = 'brick_setup.yml'
-
-
-#hosts
-ip_1 = '192.168.122.158'
-ip_2 = '192.168.122.18'
-ip_3 = '192.168.122.145'
-
-#create ip list from raw data
-ip_list = []
-ip_list.append(ip_1)
-ip_list.append(ip_2)
-ip_list.append(ip_3)
-
-#create ips dict from list of ips
-ip_dict = {}
-for i in ip_list:
-    ip_dict[i] = ''
-
-#create hosts from ips
-hosts = {}
-hosts['hosts'] = ip_dict
-
-#creat test group and fill with hosts
-inventory = {}
-inventory['vdos'] = hosts
-
 
 #variables
 vars = {
@@ -56,8 +68,11 @@ vars = {
 	}
 }
 
+settings = {"suppress_ansible_output": False}
+
 #run playbook wiht inventory
 r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
                        playbook = playbook,
                        inventory = inventory,
-                       extravars = vars)
+                       extravars = vars,
+                       settings = settings)
