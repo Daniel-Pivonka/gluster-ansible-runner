@@ -3,7 +3,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='gluster-ansible-runner')
 
-parser.add_argument('-i', '--inventory', required=True, help='Specifc the inventory you want ansible to use check code for format examples')
+parser.add_argument('-i', '--inventory', required=True, help='Specify the inventory you want ansible to use check code for format examples')
 #inventory input examples
 #--inventory [vdos:192.168.122.158,192.168.122.159,192.168.122.160],[other:192.168.122.158,192.168.122.159],[more:192.168.122.158]
 #--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158],[other:192.168.122.158]
