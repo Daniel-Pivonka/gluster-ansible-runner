@@ -3,7 +3,9 @@ import argparse
 
 parser = argparse.ArgumentParser(description='gluster-ansible-runner')
 
-parser.add_argument('-i', '--inventory', required=True, help='Specify the inventory you want ansible to use check code for format examples')
+parser.add_argument('-p', '--playbook', required=True, help='Specify the playbook you want ansible to use')
+
+parser.add_argument('-i', '--inventory', required=True, help='Specify the inventory you want ansible to use. Check code for format examples')
 #inventory input examples
 #--inventory [vdos:192.168.122.158,192.168.122.159,192.168.122.160],[other:192.168.122.158,192.168.122.159],[more:192.168.122.158]
 #--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158],[other:192.168.122.158]
@@ -11,13 +13,10 @@ parser.add_argument('-i', '--inventory', required=True, help='Specify the invent
 
 args = parser.parse_args()
 
-
-input = args.inventory
-
 #create inventroy
 inventory = {}
 #break up groups
-groups = input.split('],[')
+groups = args.inventory.split('],[')
 #go thru groups
 for group in groups:
     #remove extra '[' & ']'
@@ -39,7 +38,7 @@ for group in groups:
     inventory[split[0]] = hosts
 
 #playbook
-playbook = 'brick_setup.yml'
+playbook = args.playbook#'brick_setup.yml'
 
 #variables
 vars = {
