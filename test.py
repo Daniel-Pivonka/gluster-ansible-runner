@@ -4,6 +4,7 @@ import argparse
 parser = argparse.ArgumentParser(description='gluster-ansible-runner')
 
 parser.add_argument('-p', '--playbook', required=True, help='Specify the playbook you want ansible to use')
+#--playbook brick_setup.yml
 
 parser.add_argument('-i', '--inventory', required=True, help='Specify the inventory you want ansible to use. Check code for format examples')
 #inventory input examples
@@ -38,33 +39,22 @@ for group in groups:
     inventory[split[0]] = hosts
 
 #playbook
-playbook = args.playbook#'brick_setup.yml'
+playbook = args.playbook
 
 #variables
-vars = {
-	"vars": {
-		"gluster_infra_pvs": "/dev/vdb",
+vars = {"gluster_infra_pvs": "/dev/vdb",
 		"gluster_infra_lv_logicalvols": [
-			{
-				"lvname": "thin_lv1",
-				"lvsize": "25G"
-			},
-			{
-				"lvname": "thin_lv2",
-				"lvsize": "25G"
-			}
+			{"lvname": "thin_lv1",
+			 "lvsize": "25G"},
+			{"lvname": "thin_lv2",
+			 "lvsize": "25G"}
 		],
 		"gluster_infra_mount_devices": [
-			{
-				"path": "/mnt/thinv1",
-				"lv": "thin_lv1"
-			},
-			{
-				"path": "/mnt/thinv2",
-				"lv": "thin_lv2"
-			}
+			{"path": "/mnt/thinv1",
+			 "lv": "thin_lv1"},
+			{"path": "/mnt/thinv2",
+			 "lv": "thin_lv2"}
 		]
-	}
 }
 
 settings = {"suppress_ansible_output": False}
