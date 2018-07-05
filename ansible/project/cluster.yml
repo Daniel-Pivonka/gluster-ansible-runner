@@ -1,0 +1,19 @@
+---
+- name: Add bricks to an existing volume
+  hosts: gluster_servers
+  remote_user: root
+  gather_facts: false
+
+  vars:
+    gluster_cluster_hosts:
+      - 192.168.122.137
+      - 192.168.122.193
+      - 192.168.122.130
+    gluster_cluster_volume: testvol
+    gluster_cluster_force: 'yes'
+    gluster_cluster_transport: 'tcp'
+    # gluster_cluster_bricks: '/mnt/brick1/b1,/mnt/brick2/b2'
+    gluster_cluster_new_bricks: '/mnt/thinv1/b1'
+
+  roles:
+    - gluster.cluster
