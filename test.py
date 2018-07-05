@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import ansible_runner
 import argparse
 
@@ -84,10 +86,15 @@ def parse_args():
     args = parser.parse_args()
     vars = {}
 
+    if args.gluster_infra_fw_state:
+        print args.gluster_infra_fw_state
+
     return vars
 
 def main():
     setup_args()
+
+    vars = parse_args()
 
     args = parser.parse_args()
     #create inventroy
