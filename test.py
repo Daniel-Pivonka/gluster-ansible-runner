@@ -80,10 +80,16 @@ def setup_args():
     parser.add_argument('--gluster_repos_nfsganesha_subscribe', help='Attach to list of NFS Ganesha repositories')
     parser.add_argument('--gluster_repos_smb_subscribe', help='Attach to list of SMB repositores')
 
+def parse_args():
+    args = parser.parse_args()
+    vars = {}
+
+    return vars
+
 def main():
     setup_args()
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     #create inventroy
     inventory = {}
     #break up groups
