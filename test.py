@@ -2,6 +2,7 @@
 
 import ansible_runner
 import argparse
+import os
 
 #global parser var
 parser = argparse.ArgumentParser(description='gluster-ansible-runner')
@@ -142,8 +143,15 @@ def main():
 
     settings = {"suppress_ansible_output": False}
 
+
+    directory = '~/Documents/gluster-ansible-runner/ansible'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
+
     #run playbook wiht inventory
-    r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
+    r = ansible_runner.run(private_data_dir = directory,
                            playbook = playbook,
                            inventory = inventory,
                            #extravars = vars,
