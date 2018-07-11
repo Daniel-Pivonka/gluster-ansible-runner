@@ -140,6 +140,8 @@ def main():
         #put host in group in inventory dict
         inventory[split[0]] = hosts
 
+    print inventory
+
     #playbook
     playbook = args.playbook
 
@@ -159,27 +161,30 @@ def main():
     # 		]
     # }
 
-    # arg_vars = {
-	# 	"gluster_infra_fw_ports": [
-	# 		"2049/tcp",
-	# 		"54321/tcp",
-	# 		"5900/tcp",
-	# 		"5900-6923/tcp",
-	# 		"5666/tcp",
-	# 		"16514/tcp"
-	# 	],
-	# 	"gluster_infra_fw_permanent": True,
-	# 	"gluster_infra_fw_state": "enabled",
-	# 	"gluster_infra_fw_zone": "public",
-	# 	"gluster_infra_fw_services": [
-	# 		"glusterfs"
-	# 	]
-	# }
+    arg_vars = {
+		"gluster_infra_fw_ports": [
+			"2049/tcp",
+			"54321/tcp",
+			"5900/tcp",
+			"5900-6923/tcp",
+			"5666/tcp",
+			"16514/tcp"
+		],
+		"gluster_infra_fw_permanent": True,
+		"gluster_infra_fw_state": "enabled",
+		"gluster_infra_fw_zone": "public",
+		"gluster_infra_fw_services": [
+			"glusterfs"
+		]
+	}
 
     settings = {"suppress_ansible_output": False}
 
+    directory = os.getcwd() + "/ansible"
+
+
     #run playbook wiht inventory
-    r = ansible_runner.run(private_data_dir = './ansible',
+    r = ansible_runner.run(private_data_dir = directory,
                            playbook = playbook,
                            inventory = inventory,
                            extravars = arg_vars,
