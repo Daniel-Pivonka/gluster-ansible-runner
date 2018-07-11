@@ -99,6 +99,16 @@ def parse_args():
 
     return active_args
 
+
+def clean_up():
+    files = ['./ansible/env/extravars', './ansible/env/settings', './ansible/inventory/hosts.json']
+    for filename in files:
+        try:
+            os.remove(filename)
+        except OSError:
+            pass
+
+
 def main():
     setup_args()
 
@@ -169,12 +179,13 @@ def main():
     settings = {"suppress_ansible_output": False}
 
     #run playbook wiht inventory
-    r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
+    r = ansible_runner.run(private_data_dir = './ansible',
                            playbook = playbook,
                            inventory = inventory,
                            extravars = arg_vars,
                            #verbosity = 3,
                            settings = settings)
+    clean_up()
 
 if __name__ == "__main__":
     main()
