@@ -92,6 +92,8 @@ def parse_args():
     for foo in arg_vars:
         if arg_vars[foo]:
             active_args[foo] = arg_vars[foo]
+    active_args.pop('inventory')
+    active_args.pop('playbook')
 
     print active_args
 
@@ -150,12 +152,12 @@ def main():
     settings = {"suppress_ansible_output": False}
 
     #run playbook wiht inventory
-    r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
-                           playbook = playbook,
-                           inventory = inventory,
-                           #extravars = vars,
-                           verbosity = 3,
-                           settings = settings)
+    #r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
+    #                       playbook = playbook,
+    #                       inventory = inventory,
+    #                       #extravars = vars,
+    #                       verbosity = 3,
+    #                       settings = settings)
 
 if __name__ == "__main__":
     main()
