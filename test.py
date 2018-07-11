@@ -143,15 +143,8 @@ def main():
 
     settings = {"suppress_ansible_output": False}
 
-
-    directory = '~/Documents/gluster-ansible-runner/ansible'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-
-
     #run playbook wiht inventory
-    r = ansible_runner.run(private_data_dir = directory,
+    r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
                            playbook = playbook,
                            inventory = inventory,
                            #extravars = vars,
