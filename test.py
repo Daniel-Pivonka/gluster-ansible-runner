@@ -92,6 +92,8 @@ def parse_args():
     for foo in arg_vars:
         if arg_vars[foo]:
             active_args[foo] = arg_vars[foo]
+    active_args.pop('inventory')
+    active_args.pop('playbook')
 
     print active_args
 
