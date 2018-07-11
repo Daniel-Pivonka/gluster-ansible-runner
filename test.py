@@ -134,20 +134,37 @@ def main():
     playbook = args.playbook
 
     #variables
-    arg_vars = {"gluster_infra_pvs": "/dev/vdb",
-    		"gluster_infra_lv_logicalvols": [
-    			{"lvname": "thin_lv1",
-    			 "lvsize": "25G"},
-    			{"lvname": "thin_lv2",
-    			 "lvsize": "25G"}
-    		],
-    		"gluster_infra_mount_devices": [
-    			{"path": "/mnt/thinv1",
-    			 "lv": "thin_lv1"},
-    			{"path": "/mnt/thinv2",
-    			 "lv": "thin_lv2"}
-    		]
-    }
+    # arg_vars = {"gluster_infra_pvs": "/dev/vdb",
+    # 		"gluster_infra_lv_logicalvols": [
+    # 			{"lvname": "thin_lv1",
+    # 			 "lvsize": "25G"},
+    # 			{"lvname": "thin_lv2",
+    # 			 "lvsize": "25G"}
+    # 		],
+    # 		"gluster_infra_mount_devices": [
+    # 			{"path": "/mnt/thinv1",
+    # 			 "lv": "thin_lv1"},
+    # 			{"path": "/mnt/thinv2",
+    # 			 "lv": "thin_lv2"}
+    # 		]
+    # }
+
+    # arg_vars = {
+	# 	"gluster_infra_fw_ports": [
+	# 		"2049/tcp",
+	# 		"54321/tcp",
+	# 		"5900/tcp",
+	# 		"5900-6923/tcp",
+	# 		"5666/tcp",
+	# 		"16514/tcp"
+	# 	],
+	# 	"gluster_infra_fw_permanent": True,
+	# 	"gluster_infra_fw_state": "enabled",
+	# 	"gluster_infra_fw_zone": "public",
+	# 	"gluster_infra_fw_services": [
+	# 		"glusterfs"
+	# 	]
+	# }
 
     settings = {"suppress_ansible_output": False}
 
@@ -155,8 +172,8 @@ def main():
     r = ansible_runner.run(private_data_dir = '/home/dpivonka/Documents/gluster-ansible-runner/ansible',
                            playbook = playbook,
                            inventory = inventory,
-                           #extravars = vars,
-                           verbosity = 3,
+                           extravars = arg_vars,
+                           #verbosity = 3,
                            settings = settings)
 
 if __name__ == "__main__":
