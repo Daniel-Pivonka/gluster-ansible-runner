@@ -16,6 +16,7 @@ def setup_args():
     #--inventory [vdos:192.168.122.158,192.168.122.159,192.168.122.160],[other:192.168.122.158,192.168.122.159],[more:192.168.122.158]
     #--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158],[other:192.168.122.158]
     #--inventory [vdos:192.168.122.158,192.168.122.158,192.168.122.158]
+    #--inventory [vdos:172.28.128.10,172.28.128.11,172.28.128.12,172.28.128.13]
 
     #infra
     parser.add_argument('--gluster_infra_fw_state', help='Enable or disable a setting. For ports: Should this port accept(enabled) or reject(disabled) connections. The states "present" and "absent" can only be used in zone level operations (i.e. when no other parameters but zone and state are set).')
@@ -84,20 +85,25 @@ def setup_args():
     parser.add_argument('--gluster_repos_smb_subscribe', help='Attach to list of SMB repositores')
 
 def parse_args():
+    active_args = {}
     args = parser.parse_args()
-    vars = {}
+    arg_vars = vars(args)
 
-    if args.gluster_infra_fw_state:
-        print args.gluster_infra_fw_state
+    for foo in arg_vars:
+        if arg_vars[foo]:
+            active_args[foo] = arg_vars[foo]
 
-    return vars
+    print active_args
+
+    return active_args
 
 def main():
     setup_args()
 
-    vars = parse_args()
+    arg_vars = parse_args()
 
-    args = parser.parse_args()
+    args= parser.parse_args()
+
     #create inventroy
     inventory = {}
     #break up groups
@@ -126,7 +132,7 @@ def main():
     playbook = args.playbook
 
     #variables
-    vars = {"gluster_infra_pvs": "/dev/vdb",
+    arg_vars = {"gluster_infra_pvs": "/dev/vdb",
     		"gluster_infra_lv_logicalvols": [
     			{"lvname": "thin_lv1",
     			 "lvsize": "25G"},
