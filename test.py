@@ -114,21 +114,8 @@ def string_to_done(foo):
            foo[key] = string_to_list(value)
    return foo
 
-
-def clean_up():
-    files = ['./ansible/env/extravars', './ansible/env/settings', './ansible/inventory/hosts.json']
-    for filename in files:
-        try:
-            os.remove(filename)
-        except OSError:
-            pass
-
-
-def main():
-    setup_args()
-
-    arg_vars = string_to_done(parse_args())
-
+def get_inventory():
+    #Get inventory
     args = parser.parse_args()
 
     #create inventroy
@@ -155,7 +142,30 @@ def main():
         #put host in group in inventory dict
         inventory[split[0]] = hosts
 
+    return inventory
+
+
+def clean_up():
+    files = ['./ansible/env/extravars', './ansible/env/settings', './ansible/inventory/hosts.json']
+    for filename in files:
+        try:
+            os.remove(filename)
+        except OSError:
+            pass
+
+
+def main():
+    #setup command line args
+    setup_args()
+
+    #get args back and reformat them to work with ansible
+    arg_vars = string_to_done(parse_args())
+
+    #get inventory
+    inventory = get_inventory()
+
     #playbook
+    args = parser.parse_args()
     playbook = args.playbook
 
     #variables
