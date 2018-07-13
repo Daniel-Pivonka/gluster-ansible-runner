@@ -87,6 +87,7 @@ def setup_args():
 def parse_args():
     active_args = {}
     args = parser.parse_args()
+
     arg_vars = vars(args)
 
     for foo in arg_vars:
@@ -95,9 +96,23 @@ def parse_args():
     active_args.pop('inventory')
     active_args.pop('playbook')
 
-    print active_args
-
     return active_args
+
+def string_to_list(foo):
+   return_string = foo[1:-1]
+   return_string = return_string.split(",")
+   new = []
+   for x in return_string:
+       x = x.replace(' ', '')
+       new.append(x)
+   return new
+
+
+def string_to_done(foo):
+   for key, value in foo.iteritems():
+       if value[0] == '[':
+           foo[key] = string_to_list(value)
+   return foo
 
 
 def clean_up():
@@ -112,9 +127,9 @@ def clean_up():
 def main():
     setup_args()
 
-    arg_vars = parse_args()
+    arg_vars = string_to_done(parse_args())
 
-    args= parser.parse_args()
+    args = parser.parse_args()
 
     #create inventroy
     inventory = {}
@@ -140,8 +155,6 @@ def main():
         #put host in group in inventory dict
         inventory[split[0]] = hosts
 
-    print inventory
-
     #playbook
     playbook = args.playbook
 
@@ -161,22 +174,15 @@ def main():
     # 		]
     # }
 
-    arg_vars = {
-		"gluster_infra_fw_ports": [
-			"2049/tcp",
-			"54321/tcp",
-			"5900/tcp",
-			"5900-6923/tcp",
-			"5666/tcp",
-			"16514/tcp"
-		],
-		"gluster_infra_fw_permanent": True,
-		"gluster_infra_fw_state": "enabled",
-		"gluster_infra_fw_zone": "public",
-		"gluster_infra_fw_services": [
-			"glusterfs"
-		]
-	}
+    # arg_vars = {
+	# 	"gluster_infra_fw_ports": ["2049/tcp", "54321/tcp", "5900/tcp", "5900-6923/tcp", "5666/tcp", "16514/tcp"],
+	# 	"gluster_infra_fw_permanent": True,
+	# 	"gluster_infra_fw_state": "enabled",
+	# 	"gluster_infra_fw_zone": "public",
+	# 	"gluster_infra_fw_services": [
+	# 		"glusterfs"
+	# 	]
+	# }
 
     settings = {"suppress_ansible_output": False}
 
@@ -188,9 +194,9 @@ def main():
                            playbook = playbook,
                            inventory = inventory,
                            extravars = arg_vars,
-                           #verbosity = 3,
+                           verbosity = 0,
                            settings = settings)
-    clean_up()
+    #clean_up()
 
 if __name__ == "__main__":
     main()
