@@ -195,6 +195,8 @@ gluster ansible runner is a proof of concept tool to automate user interaction w
 
 ### Use examples
 
+*copy your ssh key to the root user on all nodes prior or ansible will fail to connect*
+
 ./test.py --inventory "[vdos:192.168.122.79,192.168.122.121,192.168.122.249]" -p "infra.yml" --gluster_infra_pvs "/dev/vdb" --gluster_infra_lv_logicalvols "[{"lvname": "thin_lv1", "lvsize": "25G"}, {"lvname": "thin_lv2", "lvsize": "25G"}]" --gluster_infra_mount_devices "[{"path": "/mnt/thinv1", "lv": "thin_lv1"}, {"path": "/mnt/thinv2", "lv": "thin_lv2"}]"
 
 ./test.py --inventory "[vdos:192.168.122.79,192.168.122.121,192.168.122.249]" -p "infra.yml" --gluster_infra_fw_ports "["2049/tcp", "54321/tcp", "5900/tcp", "5900-6923/tcp", "5666/tcp", "16514/tcp"]" --gluster_infra_fw_permanent "True" --gluster_infra_fw_state "enabled" --gluster_infra_fw_zone "public" --gluster_infra_fw_services "["glusterfs"]"
