@@ -6,6 +6,7 @@ gluster ansible runner is a proof of concept tool to automate user interaction w
 
 #####  -p PLAYBOOK, --playbook PLAYBOOK
                         Specify the playbook you want ansible to use
+                        infra.yml, cluster.yml, features.yml, repo.yml
 #####  -i INVENTORY, --inventory INVENTORY
                         Specify the inventory you want ansible to use. Input format example below
                         "[vdos:192.168.122.158,192.168.122.159,192.168.122.160],[other:192.168.122.158,192.168.122.159],[more:192.168.122.158]"
