@@ -4,7 +4,7 @@ gluster ansible runner is a proof of concept tool to automate user interaction w
 
 # Command Line Arguments
 
-*all command line arguments must be formated in a json style and wrapped in quotes to be parsed properly*
+*all command line arguments must be formated in a json style and wrapped in quotes to be parsed properly, True and False options must be capitalized*
 
 #####  -p PLAYBOOK, --playbook PLAYBOOK
                         Specify the playbook you want ansible to use
