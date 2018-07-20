@@ -84,35 +84,46 @@ def setup_args():
     parser.add_argument('--gluster_repos_nfsganesha_subscribe', help='Attach to list of NFS Ganesha repositories')
     parser.add_argument('--gluster_repos_smb_subscribe', help='Attach to list of SMB repositores')
 
+
 def parse_args():
     active_args = {}
     args = parser.parse_args()
 
+    # convert parsed-Namespace into a key value pairing
     arg_vars = vars(args)
 
+    # toggled settings are placed into dictionary of active arguments
     for foo in arg_vars:
         if arg_vars[foo]:
             active_args[foo] = arg_vars[foo]
+
+    # remove redundant inventory and playbook keys from dictionary
     active_args.pop('inventory')
     active_args.pop('playbook')
 
     return active_args
 
+
+# unpack flat string into flat list
 def string_to_list(foo):
-   return_string = foo[1:-1]
-   return_string = return_string.split(",")
-   new = []
-   for x in return_string:
-       x = x.replace(' ', '')
-       new.append(x)
-   return new
+    # remove brackets and delimt by CSVs
+    temp_string = foo[1:-1]
+    temp_string = temp_string.split(",")
+    new = []
+    # remove extra spaces and add to list or return values
+    for x in temp_string:
+        x = x.replace(' ', '')
+        new.append(x)
+    return new
 
 
-def string_to_done(foo):
-   for key, value in foo.iteritems():
-       if value[0] == '[':
-           foo[key] = string_to_list(value)
-   return foo
+# unpack nested lists from input string into valid list format
+def unpack_list(foo):
+    for key, value in foo.iteritems():
+        if value[0] == '[':
+            foo[key] = string_to_list(value)
+    return foo
+
 
 def get_inventory():
     #Get inventory
@@ -145,6 +156,7 @@ def get_inventory():
     return inventory
 
 
+# remove generated files
 def clean_up():
     files = ['./ansible/env/extravars', './ansible/env/settings', './ansible/inventory/hosts.json']
     for filename in files:
@@ -159,7 +171,7 @@ def main():
     setup_args()
 
     #get args back and reformat them to work with ansible
-    arg_vars = string_to_done(parse_args())
+    arg_vars = unpack_list(parse_args())
 
     #get inventory
     inventory = get_inventory()
