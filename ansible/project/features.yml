@@ -1,8 +1,8 @@
 ---
-- name: Cluster
+- name: Features
   hosts: servers
   remote_user: root
   gather_facts: false
 
   roles:
-    - gluster.cluster
+     - gluster.features

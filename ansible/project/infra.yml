@@ -1,7 +1,7 @@
 ---
-- name: Setting up backend with VDO
+- name: Infra
   remote_user: root
-  hosts: vdos
+  hosts: servers
   gather_facts: false
 
   roles:
