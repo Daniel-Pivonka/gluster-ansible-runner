@@ -27,7 +27,7 @@ def setup_args():
     parser.add_argument('--gluster_infra_vdo_state', help='Optional variable, default is taken as present.')
     parser.add_argument('--gluster_infra_vdo', help='Mandatory argument if vdo has to be setup. Key/Value pairs have to be given. name and device are the keys, see examples for syntax.')
     parser.add_argument('--gluster_infra_disktype', help='Backend disk type.')
-    parser.add_argument('--gluster_infra_diskcount	', help='RAID diskcount, can be ignored if disktype is JBOD')
+    parser.add_argument('--gluster_infra_diskcount', help='RAID diskcount, can be ignored if disktype is JBOD')
     parser.add_argument('--gluster_infra_vg_name', help='Optional variable, if not provided glusterfs_vg is used as vgname.')
     parser.add_argument('--gluster_infra_pvs', help='Comma-separated list of physical devices. If vdo is used this variable can be omitted.')
     parser.add_argument('--gluster_infra_stripe_unit_size', help="Stripe unit size (KiB). DO NOT including trailing 'k' or 'K'")
@@ -193,7 +193,7 @@ def main():
                            extravars = arg_vars,
                            verbosity = 0,
                            settings = settings)
-    clean_up()
+    #clean_up()
 
 if __name__ == "__main__":
     main()
