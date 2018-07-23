@@ -62,7 +62,7 @@ def setup_args():
     #features
     parser.add_argument('--gluster_features_ganesha_haname', help='Name of the NFS Ganesha cluster.')
     parser.add_argument('--gluster_features_ganesha_volume', help='An existing GlusterFS volume which will be exported through NFS Ganesha')
-    parser.add_argument('--gluster_features_ganesha_hostnames	', help='A comma separated list of hostnames, these are subset of nodes of the Gluster Trusted Pool that form the ganesha HA cluster')
+    parser.add_argument('--gluster_features_ganesha_hostnames', help='A comma separated list of hostnames, these are subset of nodes of the Gluster Trusted Pool that form the ganesha HA cluster')
     parser.add_argument('--gluster_features_ganesha_viplist', help='A comma separated list of virtual IPs for each of the nodes specified above.')
     parser.add_argument('--gluster_features_ganesha_masternode', help="One of the nodes from the Trusted Storage Pool, gluster commands will be run on this node. gluster_features_ganesha_masternode: {{ groups['ganesha_nodes'][0] }} - the first node of the inventory section ganesha_nodes will be used.")
     parser.add_argument('--gluster_features_ganesha_clusternodes', help="List of the nodes in the Trusted Storage Pool. gluster_features_ganesha_clusternodes: {{ groups['ganesha_nodes'] }} - The nodes listed in section ganesha_nodes in the inventory.")
@@ -191,7 +191,7 @@ def main():
                            playbook = playbook,
                            inventory = inventory,
                            extravars = arg_vars,
-                           verbosity = 0,
+                           verbosity = 3,
                            settings = settings)
     #clean_up()
 
