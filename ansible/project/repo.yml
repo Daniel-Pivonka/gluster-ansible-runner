@@ -1,6 +1,6 @@
 ---
 - name: Repos
-  hosts: rhsm
+  hosts: servers
   remote_user: root
   gather_facts: no
 
