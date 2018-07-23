@@ -201,5 +201,7 @@ gluster ansible runner is a proof of concept tool to automate user interaction w
 
 ./test.py --inventory "[servers:192.168.122.79,192.168.122.121,192.168.122.249]" -p "infra.yml" --gluster_infra_fw_ports "["2049/tcp", "54321/tcp", "5900/tcp", "5900-6923/tcp", "5666/tcp", "16514/tcp"]" --gluster_infra_fw_permanent "True" --gluster_infra_fw_state "enabled" --gluster_infra_fw_zone "public" --gluster_infra_fw_services "["glusterfs"]"
 
+./test.py --inventory "[servers:192.168.122.87,192.168.122.149,192.168.122.150]" -p "cluster.yml" --gluster_cluster_hosts "["192.168.122.87","192.168.122.149","192.168.122.150"]" --gluster_cluster_volume "testvol" --gluster_cluster_replica_count "3" --gluster_cluster_force "yes" --gluster_cluster_bricks "/data/brick1,/data/brick2,/data/brick3"
+
 ./test.py --inventory "[servers:192.168.122.206]" -p "repo.yml" --gluster_repos_username "dpivonka@redhat.com" --gluster_repos_password "*******" --gluster_repos_disable_all "True" --gluster_repos_pools "8a85f98c617475400161756d571b1485" --gluster_repos_rhsmrepos "["rhel-7-server-rpms", "rhel-ha-for-rhel-7-server-rpms"]"
 
